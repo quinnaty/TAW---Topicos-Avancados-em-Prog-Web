@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Aplicando JQuery</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script >
+	$(document).ready(function(){
+		$("estado").click(function(){
+			alert("Estado selecionado")
+			});			
+			$("button").click(function(){
+				$("#estado").append("<option>RS</option>","<option>SC</option>","<option>PR</option>");
+			});
+
+			//Este carrega a página do ibge na minha
+			// $.get('https://servicodados.ibge.gov.br', function(resposta){
+			// 	$("body").append(resposta);
+			// });
+	});
+
+	</script>
+
+</head>
+<body>
+		Selecione um estado
+		<button>Adc</button>
+		<select id="estado">
+			
+		</select>	
+
+	</div id="cidade">
+		Selecione uma cidade
+		
+	</div>
+</body>
+</html>

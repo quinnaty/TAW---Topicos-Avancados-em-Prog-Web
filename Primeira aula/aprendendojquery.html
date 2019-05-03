@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	
+	<script>
+	//Mexendo com Jquery
+		//Quando estiver pronto
+		$(document).ready(function(){
+			
+			$("h1").click(function(){
+			alert("JQuery funcionou."); 
+				$("main").text("Muda o texto do elem main, mas não lê tags html.");
+
+			});
+			$("h2").click(function(){
+				//.append() adciona ao final
+				//.prepend() adciona antes			
+				$("h2").html("Muda o texto do elem h2, e lê <i>tags html</i>.");
+			
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>Testando JQuery</h1>
+	<h2>....</h2>
+	<main>
+		Executado
+	</main>
+</body>
+</html>
