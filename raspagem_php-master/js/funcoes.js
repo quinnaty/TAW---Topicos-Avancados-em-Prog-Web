@@ -61,7 +61,7 @@ $(document).ready(function () {
 		$.ajax(
 			{
 				// url: "requisicoes/request.php",
-				url: "requisicoes/request3.php",
+				url: "requisicoes/request2.php",
 				type: "POST",
 				//Adiciona os dados ao POST
 				data: { idMunicipio : idMunicipio, idBalneario : idBalneario, ano : ano},
@@ -69,18 +69,11 @@ $(document).ready(function () {
 				dataType: 'json',
 				async: true,
 				success: function(dados) {
-					let cabecalhos = dados[0];
-					let headerDados = dados[1];
-					let corpoDados = dados[2];
 					//Esvazia o html, adiciona os dados e mostra o conteúdo
 					resultadoPesquisa.empty();
-					// console.log(cabecalhos);
-					// console.log(headerDados);
-					// console.log(corpoDados);
-					resultadoPesquisa.append($('<canvas>').attr('id','grafico'));
-					for (var i = 0; i < cabecalhos.length; i++){
-						criarChart(cabecalhos[i], headerDados, corpoDados[i]);
-					}
+
+					criarChart(dados);
+					// console.log(dados);
 					resultadoPesquisa.toggle("slow");
 				},
 				error: function (erro) {
@@ -93,7 +86,9 @@ $(document).ready(function () {
 	//function geraTabela - recebe os dados json e cria uma tabela HTML
 	function geraTabela(dados){
 		let tabela = document.createElement('table');
+		$(tabela).addClass('table');
 		$.each(dados, function(key, pontoColeta){
+			console.log(pontoColeta);
 			let linha = document.createElement('tr');
 			let celula = document.createElement('td');
 			let texto = document.createTextNode(key);
@@ -101,7 +96,7 @@ $(document).ready(function () {
 			celula.appendChild(texto);
 			linha.appendChild(celula);
 			tabela.appendChild(linha);
-		})
+		});
 
 		return tabela;
 	}
@@ -182,25 +177,30 @@ $(document).ready(function () {
 		);
 	}
 
-	function criarChart(cabecalhos, headerDados, corpoDados) {
-		let canvas = $('#grafico');
-		let chart = new Chart(canvas, {
-			// The type of chart we want to create
-			type: 'line',
+	function criarChart(dados) {
+		$(dados).each(function (pontoDeColeta) {
+			console.log(dados[pontoDeColeta]);
+			let canvas = document.createElement('canvas');
+			// $("#resultadoPesquisa").text(dados) ;
+			new Chart(canvas, {
+				// The type of chart we want to create
+				type: 'line',
 
-			// The data for our dataset
-			data: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-				datasets: [{
-					label: 'My First dataset',
-					backgroundColor: 'rgb(255, 99, 132)',
-					borderColor: 'rgb(255, 99, 132)',
-					data: [0, 10, 5, 2, 20, 30, 45]
-				}]
-			},
+				// The data for our dataset
+				data: {
+					labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+					datasets: [{
+						label: 'My First dataset',
+						backgroundColor: 'rgb(255, 99, 132)',
+						borderColor: 'rgb(255, 99, 132)',
+						data: [0, 10, 5, 2, 20, 30, 45]
+					}]
+				},
 
-			// Configuration options go here
-			options: {}
+				// Configuration options go here
+				options: {}
+			});
+			$("#resultadoPesquisa").append(canvas);
 		});
 	}
 
