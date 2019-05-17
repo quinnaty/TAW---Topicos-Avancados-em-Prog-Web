@@ -182,7 +182,8 @@ $(document).ready(function () {
 			console.log(dados[pontoDeColeta]);
 			let canvas = document.createElement('canvas');
 			// $("#resultadoPesquisa").text(dados) ;
-			new Chart(canvas, {
+
+			let config = {
 				// The type of chart we want to create
 				type: 'line',
 
@@ -192,14 +193,25 @@ $(document).ready(function () {
 					datasets: [{
 						label: 'My First dataset',
 						backgroundColor: 'rgb(255, 99, 132)',
-						borderColor: 'rgb(255, 99, 132)',
+						borderColor: 'rgb(99, 99, 99)',
 						data: [0, 10, 5, 2, 20, 30, 45]
 					}]
 				},
 
 				// Configuration options go here
-				options: {}
-			});
+				options: {
+					responsive: true,
+					title: {
+						display : true,
+						text : dados[pontoDeColeta].titulos.Balneário + " - "
+							+ dados[pontoDeColeta].titulos.Localização +" - "
+							+dados[pontoDeColeta].titulos.Município +" - "
+							+ dados[pontoDeColeta].titulos.Ponto_de_Coleta
+					}
+				}
+			};
+
+			new Chart(canvas, config);
 			$("#resultadoPesquisa").append(canvas);
 		});
 	}
